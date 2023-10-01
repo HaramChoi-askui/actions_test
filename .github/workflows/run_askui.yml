@@ -1,6 +1,9 @@
 name: AskUI Run without Studio
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+  #  workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
