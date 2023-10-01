@@ -17,6 +17,8 @@ jobs:
           node-version: 16.x
       - name: Install dependencies
         run: npm install
+      - name: Install libfuse2
+        run: sudo apt install -y libfuse2
       - name: Run tests
         run: npm test
         env:
