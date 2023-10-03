@@ -1,4 +1,4 @@
-import { UiControlClient, UiController } from 'askui';
+import { ReporterConfig, UiControlClient, UiController } from 'askui';
 import { AskUIAllureStepReporter } from '@askui/askui-reporters';
 
 // Server for controlling the operating system
