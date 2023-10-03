@@ -10,6 +10,11 @@ let aui: UiControlClient;
 
 jest.setTimeout(60 * 1000 * 60);
 
+const reporterConfig: ReporterConfig = {
+  withScreenshots: 'always',
+  withDetectedElements: 'always',
+}
+
 beforeAll(async () => {
   uiController = new UiController({
     /**
@@ -27,7 +32,9 @@ beforeAll(async () => {
       token: '<your access token>',
     },
  */
-    reporter: new AskUIAllureStepReporter(),
+    reporter: new AskUIAllureStepReporter(
+      reporterConfig
+    ),
   });
 
   await aui.connect();
