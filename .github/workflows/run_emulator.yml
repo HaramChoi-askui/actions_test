@@ -22,10 +22,21 @@ jobs:
         run: |
             echo "$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/${{ env.ANDROID_BUILD_TOOLS_VERSION }}" >> $GITHUB_PATH
 
-      - name: Install Sdk
+      - name: Cache Android system image
+        id: cache-image
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-android-system-image
+        with:
+          path: $ANDROID_HOME/system-images
+          key: ${{ runner.os }}-${{ env.cache-name }}
+
+      - if: ${{ steps.cache-image.outputs.cache-hit != 'true'}}
+        name: Download android image
+        continue-on-error: true
         run: |
-           yes Y | sdkmanager --licenses
-           sdkmanager --install ${ANDROID_SDK_PACKAGES}
+          yes Y | sdkmanager --licenses
+          sdkmanager --install ${ANDROID_SDK_PACKAGES}
   
       - name: Build emulator
         run: |
@@ -33,7 +44,7 @@ jobs:
 
       - name: Launch emulator
         run: |
-          nohup emulator -avd mytestdevice -noaudio -no-window -no-boot-anim &
+          nohup emulator -avd mytestdevice -noaudio -no-window -no-boot-anim -accel on &
       - name: Wait until the emulator is launched
         run: |
           bash check_emulator_status.sh
