@@ -19,23 +19,16 @@ jobs:
         with:
           java-version: '11'
       - name: Set up Android emulator
-        uses: reactivecircus/android-emulator-runner@v2
+        uses: actions/setup-android@v2
         with:
-          api-level: 30
-          arch: x86_64
-          profile: Nexus 5X
-          tag: google_apis
-          abi: x86_64
-          disable-animations: true
-          disable-spelling-correction: true
-          disable-keyboard-suggestions: true
-          disable-screen-timeout: true
-          grant-permissions: true
-          adb-version: latest
-      - name: Wait for emulator to finish booting
+          emulator-version: '30.0.12'
+          sdk-version: '30'
+      - name: Start emulator
         run: |
+          # Start the emulator
+          emulator -avd emulator-30 -no-window -no-audio &
           # Wait for the emulator to finish booting
-          while [ "`adb shell getprop sys.boot_completed | tr -d '\r' `" != "1" ] ; do sleep 1; done
+          android-wait-for-emulator
       - name: Take screenshot
         run: |
           # Take a screenshot of the emulator
