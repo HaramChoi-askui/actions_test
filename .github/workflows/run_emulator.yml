@@ -3,10 +3,8 @@ on:
   workflow_dispatch:
     
 env:
-  ANDROID_ARCH: x86_64
-  ANDROID_TARGET: google_apis_playstore
+  # ANDROID_ARCH: x86_64
   ANDROID_SDK_PACKAGES: system-images;android-33;google_apis;x86_64 platform-tools emulator
-  EMULATOR_TIMEOUT: 350
   EMULATOR_NAME: mytestdevice
 
 jobs:
