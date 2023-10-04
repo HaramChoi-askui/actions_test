@@ -1,0 +1,44 @@
+name: Android emulator
+on:
+  workflow_dispatch:
+    
+env:
+  ANDROID_ARCH: x86_64
+  ANDROID_TARGET: google_apis_playstore
+  ANDROID_SDK_PACKAGES: system-images;android-33;google_apis;x86_64 platform-tools emulator
+  EMULATOR_TIMEOUT: 350
+  EMULATOR_NAME: mytestdevice
+
+jobs:
+  playwright-emulator:
+    timeout-minutes: 20
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+        
+      - name: Add avdmanager and sdkmanager to system PATH
+        run: |
+            echo "$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/${{ env.ANDROID_BUILD_TOOLS_VERSION }}" >> $GITHUB_PATH
+
+      - name: Install Sdk
+        run: |
+           yes Y | sdkmanager --licenses
+           sdkmanager --install ${ANDROID_SDK_PACKAGES}
+  
+      - name: Build emulator
+        run: |
+            echo "no" | avdmanager --verbose create avd --force -n $EMULATOR_NAME -k "system-images;android-33;google_apis;x86_64"
+
+      - name: Launch emulator
+        run: |
+          nohup emulator -avd mytestdevice &;
+      - name: Take screenshot
+        run: |
+          # Take a screenshot of the emulator
+          adb shell screencap -p /sdcard/screenshot.png
+          adb pull /sdcard/screenshot.png .
+      - name: Upload screenshot as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshot
+          path: screenshot.png
