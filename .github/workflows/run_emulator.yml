@@ -44,7 +44,7 @@ jobs:
 
       - name: Launch emulator
         run: |
-          nohup emulator -avd mytestdevice -noaudio -no-window -no-boot-anim -accel on &
+          nohup emulator -avd mytestdevice -noaudio -no-window -no-boot-anim -accel on -gpu off&
       - name: Wait until the emulator is launched
         run: |
           bash check_emulator_status.sh
