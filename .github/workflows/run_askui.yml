@@ -7,11 +7,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-      ui-controller:
-        image: askuigmbh/askui-ui-controller:v0.11.2-chrome-100.0.4896.60-amd64
-        ports:
-          - 6769:6769
+    # services:
+    #   ui-controller:
+    #     image: askuigmbh/askui-ui-controller:v0.11.2-chrome-100.0.4896.60-amd64
+    #     ports:
+    #       - 6769:6769
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js 16.x
