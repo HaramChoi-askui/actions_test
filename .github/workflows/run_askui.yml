@@ -18,6 +18,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+      - name: Check Android env-vars
+        run: echo $ANDROID_HOME; echo $ANDROID_SDK_HOME;
       - name: Install dependencies
         run: npm install
       - name: Install libfuse2
