@@ -33,7 +33,7 @@ jobs:
 
       - name: Launch emulator
         run: |
-          nohup emulator -avd mytestdevice &;
+          nohup emulator -avd mytestdevice &
       - name: Take screenshot
         run: |
           # Take a screenshot of the emulator
