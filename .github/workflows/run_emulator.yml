@@ -1,0 +1,48 @@
+name: AskUI Run without Studio
+on:
+  # push:
+  #   branches:
+  #     - main
+   workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      ui-controller:
+        image: askuigmbh/askui-ui-controller:v0.11.2-chrome-100.0.4896.60-amd64
+        ports:
+          - 6769:6769
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+      - name: Set up Android emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          arch: x86_64
+          profile: Nexus 5X
+          tag: google_apis
+          abi: x86_64
+          disable-animations: true
+          disable-spelling-correction: true
+          disable-keyboard-suggestions: true
+          disable-screen-timeout: true
+          grant-permissions: true
+          adb-version: latest
+      - name: Wait for emulator to finish booting
+        run: |
+          # Wait for the emulator to finish booting
+          while [ "`adb shell getprop sys.boot_completed | tr -d '\r' `" != "1" ] ; do sleep 1; done
+      - name: Take screenshot
+        run: |
+          # Take a screenshot of the emulator
+          adb shell screencap -p /sdcard/screenshot.png
+          adb pull /sdcard/screenshot.png .
+      - name: Upload screenshot as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshot
+          path: screenshot.png
