@@ -1,0 +1,1 @@
+[{"uid":"2f29bd58a9aadc68","name":"should generate an (interactive) annotation","time":{"start":1696446664393,"stop":1696446670595,"duration":6202},"status":"passed","severity":"normal"},{"uid":"546b27d8bb1b605e","name":"should click on my element","time":{"start":1696446670605,"stop":1696446682548,"duration":11943},"status":"passed","severity":"normal"}]
