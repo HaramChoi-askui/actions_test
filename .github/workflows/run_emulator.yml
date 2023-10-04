@@ -34,6 +34,9 @@ jobs:
       - name: Launch emulator
         run: |
           nohup emulator -avd mytestdevice &
+      - name: Wait until the emulator is launched
+        run: |
+          bash check_emulator_status.sh
       - name: Take screenshot
         run: |
           # Take a screenshot of the emulator
