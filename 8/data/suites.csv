@@ -1,0 +1,27 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Wed Oct 04 19:04:18 GMT 2023","Wed Oct 04 19:04:27 GMT 2023","9262","home","runner > work > actions_test > actions_test > test > my-first-askui-test-suite.test.ts","jest with askui","","","should generate an (interactive) annotation","
+### Test
+```typescript
+() =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    // For Windows users:
+    // Use annotate() to create an annotated HTML file
+    // of your screen that is saved under <project_root>/report
+    yield jest_setup_1.aui.annotate();
+    // Uncomment for macOS and Linux
+    // Delete the lines above to not trigger annotate()
+    // await aui.annotateInteractively();
+  });
+
+```
+"
+"passed","Wed Oct 04 19:04:27 GMT 2023","Wed Oct 04 19:04:41 GMT 2023","13782","home","runner > work > actions_test > actions_test > test > my-first-askui-test-suite.test.ts","jest with askui","","","should click on my element","
+### Test
+```typescript
+() =>
+  __awaiter(void 0, void 0, void 0, function* () {
+    yield jest_setup_1.aui.moveMouse(600, 600).exec();
+  });
+
+```
+"
