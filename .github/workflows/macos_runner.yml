@@ -41,7 +41,7 @@ jobs:
           force-avd-creation: true
           emulator-options: -no-snapshot-save -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
-          script: screencapture shot_macos.png
+          script: bash wait_and_run_chrome.sh
 
       - name: Upload screenshot as artifact
         uses: actions/upload-artifact@v2
