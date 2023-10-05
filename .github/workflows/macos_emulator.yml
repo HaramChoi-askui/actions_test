@@ -48,11 +48,11 @@ jobs:
       - name: Wait until the emulator is launched
         run: |
           bash check_emulator_status.sh
-      - name: Take screenshot
-        run: |
-          # Take a screenshot of the emulator
-          adb shell screencap -p /sdcard/screenshot.png
-          adb pull /sdcard/screenshot.png .
+      # - name: Take screenshot
+      #   run: |
+      #     # Take a screenshot of the emulator
+      #     adb shell screencap -p /sdcard/screenshot.png
+      #     adb pull /sdcard/screenshot.png .
       - name: Take MacOS screenshot
         run: |
           screencapture shot_macos.png
