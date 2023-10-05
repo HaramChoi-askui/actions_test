@@ -13,9 +13,11 @@ while true; do
   fi
 done
 
+screencapture shot_emulator_loaded.png
+
 echo "Waiting for the emulator loading finished"
 
-adb shell am start -n com.android.chrome/org.chromium.chrome.browser.ChromeTabbedActivity -d "https://www.google.com"
+adb shell am start -n com.android.chrome/com.google.android.apps.chrome.Main
 
 count=0
 
@@ -32,4 +34,6 @@ if [ $count -gt 3 ]; then
 fi
 done
 
-echo "Chrome is loaded"
+echo "Chrome is loaded";
+
+screencapture shot_macos.png

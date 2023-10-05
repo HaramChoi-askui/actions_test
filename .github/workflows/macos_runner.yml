@@ -48,3 +48,5 @@ jobs:
         with:
           name: screenshot
           path: shot_macos.png
+          name: emu_load
+          path: shot_emulator_loaded.png
