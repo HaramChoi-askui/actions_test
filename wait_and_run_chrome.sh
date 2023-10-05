@@ -2,10 +2,15 @@
 
 count=0
 
-while [ $count -lt 10 ]; do
+while true; do
   echo "The count is $count"
   let count=count+1
   sleep 5
+
+  if [ $count -gt 10 ]; then
+    echo "The count is greater than 10"
+    break
+  fi
 done
 
 echo "Waiting for the emulator loading finished"
@@ -16,10 +21,15 @@ count=0
 
 echo "Waiting for chrome to be loaded"
 
-while [ $count -lt 3 ]; do
+while true; do
   echo "The count is $count"
   let count=count+1
   sleep 5
+
+if [ $count -gt 3 ]; then
+    echo "The count is greater than 3"
+    break
+fi
 done
 
 echo "Chrome is loaded"
