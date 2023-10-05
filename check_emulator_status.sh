@@ -3,7 +3,7 @@ function check_emulator_status () {
   start_time=$(date +%s)
   spinner=( "⠹" "⠺" "⠼" "⠶" "⠦" "⠧" "⠇" "⠏" )
   i=0
-  # Get the timeout value from the environment variable or use the default value of 300 seconds (5 minutes)
+
   timeout=${EMULATOR_TIMEOUT:-300}
 
   while true; do
@@ -21,12 +21,12 @@ function check_emulator_status () {
       i=$(( (i+1) % 8 ))
     fi
 
-    # current_time=$(date +%s)
-    # elapsed_time=$((current_time - start_time))
-    # if [ $elapsed_time -gt $timeout ]; then
-    #   printf "${RED}==> Timeout after ${timeout} seconds elapsed 🕛.. ${NC}\n"
-    #   break
-    # fi
+    current_time=$(date +%s)
+    elapsed_time=$((current_time - start_time))
+    if [ $elapsed_time -gt $timeout ]; then
+      printf "${RED}==> Timeout after ${timeout} seconds elapsed 🕛.. ${NC}\n"
+      break
+    fi
     sleep 4
   done
 };
