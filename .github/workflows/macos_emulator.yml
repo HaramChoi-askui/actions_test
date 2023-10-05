@@ -1,0 +1,60 @@
+name: Android emulator
+on:
+  workflow_dispatch:
+    
+env:
+  # ANDROID_ARCH: x86_64
+  ANDROID_SDK_PACKAGES: system-images;android-33;google_apis;x86_64 platform-tools emulator
+  EMULATOR_NAME: mytestdevice
+
+jobs:
+  test:
+    runs-on: macos-latest
+    # services:
+    #   ui-controller:
+    #     image: askuigmbh/askui-ui-controller:v0.11.2-chrome-100.0.4896.60-amd64
+    #     ports:
+    #       - 6769:6769
+    steps:
+      - uses: actions/checkout@v3
+        
+      - name: Add avdmanager and sdkmanager to system PATH
+        run: |
+            echo "$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/${{ env.ANDROID_BUILD_TOOLS_VERSION }}" >> $GITHUB_PATH
+
+      - name: Cache Android system image
+        id: cache-image
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-android-system-image
+        with:
+          path: $ANDROID_HOME/system-images
+          key: ${{ runner.os }}-${{ env.cache-name }}
+
+      - if: ${{ steps.cache-image.outputs.cache-hit != 'true'}}
+        name: Download android image
+        continue-on-error: true
+        run: |
+          yes Y | sdkmanager --licenses
+          sdkmanager --install ${ANDROID_SDK_PACKAGES}
+  
+      - name: Build emulator
+        run: |
+            echo "no" | avdmanager --verbose create avd --force -n $EMULATOR_NAME -k "system-images;android-33;google_apis;x86_64"
+
+      - name: Launch emulator
+        run: |
+          nohup emulator -avd mytestdevice -noaudio -no-window -no-boot-anim -no-accel -gpu off &
+      - name: Wait until the emulator is launched
+        run: |
+          bash check_emulator_status.sh
+      - name: Take screenshot
+        run: |
+          # Take a screenshot of the emulator
+          adb shell screencap -p /sdcard/screenshot.png
+          adb pull /sdcard/screenshot.png .
+      - name: Upload screenshot as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshot
+          path: screenshot.png
