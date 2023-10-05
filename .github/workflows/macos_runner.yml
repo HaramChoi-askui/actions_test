@@ -44,9 +44,9 @@ jobs:
           script: bash wait_and_run_chrome.sh
 
       - name: Upload screenshot as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: screenshot
-          path: shot_macos.png
-          name: emu_load
-          path: shot_emulator_loaded.png
+          path: | 
+          shot_macos.png
+          shot_emulator_loaded.png
