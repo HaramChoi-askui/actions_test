@@ -48,5 +48,5 @@ jobs:
         with:
           name: screenshot
           path: | 
-          shot_macos.png
-          shot_emulator_loaded.png
+            shot_macos.png
+            shot_emulator_loaded.png
