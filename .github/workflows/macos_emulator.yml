@@ -30,10 +30,6 @@ jobs:
         with:
           path: $ANDROID_HOME/system-images
           key: ${{ runner.os }}-${{ env.cache-name }}
-
-      - if: ${{ steps.cache-image.outputs.cache-hit != 'true'}}
-        name: Download android image
-        continue-on-error: true
         run: |
           yes Y | sdkmanager --licenses
           sdkmanager --install ${ANDROID_SDK_PACKAGES}
