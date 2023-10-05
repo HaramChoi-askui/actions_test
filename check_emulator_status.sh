@@ -21,15 +21,12 @@ function check_emulator_status () {
       i=$(( (i+1) % 8 ))
     fi
 
-    current_time=$(date +%s)
-    elapsed_time=$((current_time - start_time))
-    if [ "$result" == "" ]; then
-      $elapsed_time=0
-    fi
-    if [ $elapsed_time -gt $timeout ]; then
-      printf "${RED}==> Timeout after ${timeout} seconds elapsed 🕛.. ${NC}\n"
-      break
-    fi
+    # current_time=$(date +%s)
+    # elapsed_time=$((current_time - start_time))
+    # if [ $elapsed_time -gt $timeout ]; then
+    #   printf "${RED}==> Timeout after ${timeout} seconds elapsed 🕛.. ${NC}\n"
+    #   break
+    # fi
     sleep 4
   done
 };
